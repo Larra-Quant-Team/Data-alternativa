@@ -13,7 +13,7 @@ class Mailer():
         self.body = f"This is an email was generated automaticaly from Python Alexa script at {datetime.now()}"
         self.sender_email = "lv.quant.team@gmail.com"
         self.receiver_email = "fpaniagua@larrainvial.com"
-        self.password = input("Type your password and press enter:")
+        self.password = "Larra2020"
         self.message = None
 
     def create_message(self, filename):
