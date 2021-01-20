@@ -15,7 +15,7 @@ from time import sleep
 #user = os.getlogin()
 # Por alguna razón lee mal el url_base original
 dicc = pd.read_excel('url_base2.xlsx',
-                     index_col='Ticker CIQ').squeeze()
+                     index_col='Ticker CIQ',  engine='openpyxl').squeeze()
 dicc = dicc.loc[dicc.notna()]
 
 dicc = dicc.to_dict()

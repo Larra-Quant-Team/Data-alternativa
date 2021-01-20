@@ -6,3 +6,4 @@ nltk
 requests
 bs4
 xlrd>=1.2.0
+openpyxl
