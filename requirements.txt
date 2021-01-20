@@ -5,4 +5,4 @@ selenium
 nltk
 requests
 bs4
-xlrd
+xlrd>=1.0.0
