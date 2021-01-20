@@ -5,3 +5,4 @@ selenium
 nltk
 requests
 bs4
+xlrd
