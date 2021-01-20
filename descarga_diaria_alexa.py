@@ -12,7 +12,7 @@ import os
 import mailer_quant
 from time import sleep
 
-user = os.getlogin()
+#user = os.getlogin()
 # Por alguna razón lee mal el url_base original
 dicc = pd.read_excel('url_base2.xlsx',
                      index_col='Ticker CIQ').squeeze()
