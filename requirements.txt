@@ -4,3 +4,4 @@ numpy
 selenium
 nltk
 requests
+bs4
