@@ -3,3 +3,4 @@ matplotlib
 numpy
 selenium
 nltk
+requests
