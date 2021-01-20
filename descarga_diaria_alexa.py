@@ -32,10 +32,12 @@ plt.tight_layout()
 data.T.plot(subplots=True, ax=axes)
 
 #fig = data.T.plot(subplots=True, figsize=(20, 16), layout=(67,1)).get_figure()
-fig.savefig('test.pdf')
+fig.savefig('Graficos evolución alexa.pdf')
 
 met.save_obj(data,  'data_diaria_alexa')
 
 mail_sender = mailer_quant.Mailer()
-mail_sender.create_message("test.pdf")
-mail_sender.send_message()
+mail_sender.create_message("Graficos evolución alexa.pdf")
+mails = ["fpaniagua@larrainvial.com", "fpaniagua@larrainvial.com"]
+for mail in mails:
+    mail_sender.send_message(mail)
