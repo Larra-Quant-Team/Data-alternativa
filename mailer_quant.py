@@ -10,7 +10,7 @@ class Mailer():
 
     def __init__(self):
         self.subject = "An email with attachment from Python"
-        self.body = f"This is an email was generated automaticaly from Python Alexa script at {datetime.now()}"
+        self.body = f"This is email was scheduled to be generated automatically from Python Alexa script at {datetime.now()}"
         self.sender_email = "lv.quant.team@gmail.com"
         self.receiver_email = "fpaniagua@larrainvial.com"
         self.password = "Larra2020"
