@@ -15,6 +15,8 @@ class Mailer():
         self.receiver_email = "fpaniagua@larrainvial.com"
         self.password = os.environ.get('EMAIL_PASSWORD')
         self.message = None
+        print(self.send_email)
+        print(self.password)
 
     def create_message(self, filename):
         # Create a multipart message and set headers
