@@ -40,6 +40,6 @@ met.save_obj(data,  'data_diaria_alexa')
 mail_sender = mailer_quant.Mailer()
 sleep(1)
 mail_sender.create_message("graficos.pdf")
-mails = ["fpaniagua@larrainvial.com" , "Aback@larrainvial.com", "Moksenberg@larrainvial.com"]
+mails = ["fpaniagua@larrainvial.com"]
 for mail in mails:
     mail_sender.send_message(mail)
