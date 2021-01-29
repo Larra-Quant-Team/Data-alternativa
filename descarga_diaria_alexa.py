@@ -11,7 +11,7 @@ from datetime import datetime
 import os
 import mailer_quant
 from time import sleep
-
+from modules.tables import tables
 
 def create_key(company, url, source, field):
     company[company.isna()] = 'null'
@@ -62,3 +62,4 @@ for tick, url in dicc.items():
     series = pd.Series(data.loc[tick])
     series.index.rename("Date")
     series.name = create_key(companieInfo, url, "Alexa", "Alexa Traffic Rank")
+    break
