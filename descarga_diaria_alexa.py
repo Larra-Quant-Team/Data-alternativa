@@ -12,6 +12,34 @@ import os
 import mailer_quant
 from time import sleep
 
+
+def create_key(company, url, source, field):
+    company[company.isna()] = 'null'
+    country = company['Country']
+    investible = str(company['Invertible'])
+    asset = str(company.name)
+    ind_sector = company['Industry_Sector']
+    ind_group = company['Industry_Group']
+    ind_industry = company['Industry']
+    ind_internal = company['Internal_industry']
+    ind_esg = company['ESG_Industry']
+    
+    return '.'.join([country, asset, investible, ind_sector,
+                     ind_group, ind_industry, ind_internal, ind_esg,
+                     url, source, field])
+
+
+
+# TODO leer información de la compañia directamente de Mongo
+# Load Companies
+companies = pd.read_excel('Company_Base_Definitivo.xlsx',
+                          sheet_name='Compilado')
+companies.set_index('ID_Quant', inplace=True)
+companies.sort_index(inplace=True)
+# Filter companies that aren't investable
+companies = companies.loc[companies['Invertible'] == 1]
+
+
 #user = os.getlogin()
 # Por alguna razón lee mal el url_base original
 dicc = pd.read_excel('url_base2.xlsx',
@@ -20,6 +48,7 @@ dicc = dicc.loc[dicc.notna()]
 
 dicc = dicc.to_dict()
 data = pd.Series(index=dicc.keys(), name=datetime.today())
+
 for tick, url in dicc.items():
     print(f'Tomando datos de {url}')
     data[tick] = met.alexaGet(url)
@@ -27,19 +56,9 @@ for tick, url in dicc.items():
 data_hist = met.load_obj( 'data_diaria_alexa')
 data = data_hist.merge(data, how='outer', right_index=True,
                        left_index=True)
-print(data.shape)
-fig, axes = plt.subplots(nrows=66, ncols=1, figsize=(30, 260))
-plt.tight_layout()
-data.T.plot(subplots=True, ax=axes)
 
-#fig = data.T.plot(subplots=True, figsize=(20, 16), layout=(67,1)).get_figure()
-fig.savefig('graficos.pdf')
-
-met.save_obj(data,  'data_diaria_alexa')
-
-mail_sender = mailer_quant.Mailer()
-sleep(1)
-mail_sender.create_message("graficos.pdf")
-mails = ["fpaniagua@larrainvial.com" , "Aback@larrainvial.com", "Moksenberg@larrainvial.com"]
-for mail in mails:
-    mail_sender.send_message(mail)
+for tick, url in dicc.items():
+    companieInfo = companies.loc[companies["Ticker CIQ"] == tick].iloc[0]
+    series = pd.Series(data.loc[tick])
+    series.index.rename("Date")
+    series.name = create_key(companieInfo, url, "Alexa", "Alexa Traffic Rank")
