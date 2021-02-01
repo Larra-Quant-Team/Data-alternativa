@@ -40,7 +40,6 @@ companies.sort_index(inplace=True)
 companies = companies.loc[companies['Invertible'] == 1]
 
 
-#user = os.getlogin()
 # Por alguna razón lee mal el url_base original
 dicc = pd.read_excel('url_base2.xlsx',
                      index_col='Ticker CIQ',  engine='openpyxl').squeeze()
@@ -57,9 +56,17 @@ data_hist = met.load_obj( 'data_diaria_alexa')
 data = data_hist.merge(data, how='outer', right_index=True,
                        left_index=True)
 
+df = []
 for tick, url in dicc.items():
     companieInfo = companies.loc[companies["Ticker CIQ"] == tick].iloc[0]
     series = pd.Series(data.loc[tick])
     series.index.rename("Date")
     series.name = create_key(companieInfo, url, "Alexa", "Alexa Traffic Rank")
-    break
+    df.append(series)
+df = pd.concat(df, axis=1)
+
+# Send data to Mongo
+
+eq = tables.WebInfoMaster()
+keys = eq.get_keys()
+eq.insert(df, keys)
