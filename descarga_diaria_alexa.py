@@ -33,7 +33,7 @@ def create_key(company, url, source, field):
 # TODO leer información de la compañia directamente de Mongo
 # Load Companies
 companies = pd.read_excel('Company_Base_Definitivo.xlsx',
-                          sheet_name='Compilado')
+                          sheet_name='Compilado', engine='openpyxl')
 companies.set_index('ID_Quant', inplace=True)
 companies.sort_index(inplace=True)
 # Filter companies that aren't investable
