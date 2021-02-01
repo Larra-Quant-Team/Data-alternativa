@@ -1,8 +1,10 @@
+import os
+
 credentials = {
-    "user": "quantUser",# "dbUser"
-    "password": "Quant.L4rr4?", # "Larra.2020"
-    "dbname": "QuantRepo",
-    "host": "quant-main.5pkxp.mongodb.net", # "amalgama-fbqlw.mongodb.net"
+    "user": os.environ.get('MONGO_USER'),# "dbUser"
+    "password": os.environ.get('MONGO_PASSWORD'), # "Larra.2020"
+    "dbname": os.environ.get('MONGO_DB'),
+    "host": os.environ.get('MONGO_HOST'), # "amalgama-fbqlw.mongodb.net"
     "args": "test?retryWrites=true&w=majority",
-    "port": 27017
+    "port": os.environ.get('MONGO_PORT')
 }
