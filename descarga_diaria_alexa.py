@@ -26,7 +26,7 @@ def create_key(company, url, source, field):
     
     return '.'.join([country, asset, investible, ind_sector,
                      ind_group, ind_industry, ind_internal, ind_esg,
-                     url, source, field])
+                     source, field])
 
 
 

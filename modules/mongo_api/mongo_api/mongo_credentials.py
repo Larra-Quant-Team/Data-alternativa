@@ -6,5 +6,5 @@ credentials = {
     "dbname": os.environ.get('MONGO_DB'),
     "host": os.environ.get('MONGO_HOST'), # "amalgama-fbqlw.mongodb.net"
     "args": "test?retryWrites=true&w=majority",
-    "port": os.environ.get('MONGO_PORT')
+    "port": int(os.environ.get('MONGO_PORT'))
 }
