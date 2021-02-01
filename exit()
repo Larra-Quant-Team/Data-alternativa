@@ -1,0 +1,163 @@
+[33mcommit 73ff65c54bfd14cfaaa26362a70960020aff85e7[m[33m ([m[1;36mHEAD -> [m[1;32mMongo-alexa-connection[m[33m, [m[1;31morigin/Mongo-alexa-connection[m[33m)[m
+Author: Francisco Paniagua <fpaniagua@larrainvial.com>
+Date:   Mon Feb 1 10:12:23 2021 -0300
+
+    :star: Add connection to mongo
+
+[33mcommit 5e25891520858ecdae21fcfc2e514deb942fb5cd[m
+Author: fipaniaguaLV <fpaniagua@larrainvial.com>
+Date:   Fri Jan 29 13:57:26 2021 -0300
+
+    :file_folder: Add modules for project
+
+[33mcommit 38d3340eac109317ee3d9c789ce42399a89e1609[m
+Author: fipaniaguaLV <fpaniagua@larrainvial.com>
+Date:   Fri Jan 29 12:39:55 2021 -0300
+
+    :star: Add equity information and key creation
+
+[33mcommit d0becd73c47b3409aa5b13224c48a59168eb4c5a[m[33m ([m[1;35mrefs/stash[m[33m)[m
+Merge: 5776771 17d4c8f
+Author: fipaniaguaLV <fpaniagua@larrainvial.com>
+Date:   Thu Jan 28 16:54:40 2021 -0300
+
+    WIP on vars-config: 5776771 :speech_balloon: Update print for debug
+
+[33mcommit 17d4c8f2722be17a8f0660c870db883bd1436840[m
+Author: fipaniaguaLV <fpaniagua@larrainvial.com>
+Date:   Thu Jan 28 16:54:40 2021 -0300
+
+    index on vars-config: 5776771 :speech_balloon: Update print for debug
+
+[33mcommit 60da1ffb935be363f4c353d27417288e43aa32ae[m[33m ([m[1;31morigin/develop[m[33m, [m[1;32mdevelop[m[33m)[m
+Author: fipaniaguaLV <76949470+fipaniaguaLV@users.noreply.github.com>
+Date:   Thu Jan 28 14:07:52 2021 -0300
+
+    :book: Create Readme file
+
+[33mcommit 5776771838a20b16c6bc95a93cccae9c6cdc7fde[m[33m ([m[1;31morigin/vars-config[m[33m, [m[1;32mvars-config[m[33m)[m
+Author: fipaniagua <fipaniagua@uc.cl>
+Date:   Thu Jan 21 14:09:44 2021 -0300
+
+    :speech_balloon: Update print for debug
+
+[33mcommit 897b9000741eaccd604afc2639cf0a67d862f3c2[m
+Author: fipaniagua <fipaniagua@uc.cl>
+Date:   Thu Jan 21 14:00:55 2021 -0300
+
+    :speech_balloon: Add print for debug
+
+[33mcommit d53d2c7df2d4c22c2431b20d9271b6b5f9037d87[m
+Author: fipaniagua <fipaniagua@uc.cl>
+Date:   Thu Jan 21 13:47:07 2021 -0300
+
+    :wrench: Update email recivers for testing
+
+[33mcommit d6e6820de3935a2caa392895fe79a95a395cac0b[m
+Author: fipaniagua <fipaniagua@uc.cl>
+Date:   Thu Jan 21 13:43:18 2021 -0300
+
+    :star: Update class to get params from env vars
+
+[33mcommit 5924f9b4b5bcb9f2ee529b58381eec209bda9bfc[m
+Author: fipaniagua <fipaniagua@uc.cl>
+Date:   Wed Jan 20 12:39:04 2021 -0300
+
+    :wrench: Update email parameters
+
+[33mcommit deeb4315cfab995dca3d8ed13891420210bb166a[m
+Author: fipaniagua <fipaniagua@uc.cl>
+Date:   Wed Jan 20 12:21:08 2021 -0300
+
+    :bug: Change excel reading engine
+
+[33mcommit fc0f7752bb52223698d8571c67154b24263300d7[m
+Author: fipaniagua <fipaniagua@uc.cl>
+Date:   Wed Jan 20 12:14:20 2021 -0300
+
+    :arrow_up: Update xlrd version to 1.2
+
+[33mcommit 70092b7ce5d3ebe104270463cb5a20393178ae24[m
+Author: fipaniagua <fipaniagua@uc.cl>
+Date:   Wed Jan 20 12:06:26 2021 -0300
+
+    :arrow_up: Update xlrd version
+
+[33mcommit a638714970f4347e793b580c21893f6a6738f78c[m
+Author: fipaniagua <fipaniagua@uc.cl>
+Date:   Wed Jan 20 11:57:00 2021 -0300
+
+    :arrow_up: add xlrd to dependecies
+
+[33mcommit 8160046e64d87ed85ab7a25dc4ff10f39b3e2edc[m
+Author: fipaniagua <fipaniagua@uc.cl>
+Date:   Wed Jan 20 11:51:58 2021 -0300
+
+    :bug: Eliminate conflicting line
+
+[33mcommit 2dc599fff7447806b2557651add463d1ad8c7ad3[m
+Author: fipaniagua <fipaniagua@uc.cl>
+Date:   Wed Jan 20 11:45:13 2021 -0300
+
+    :arrow_up: add bs4 to dependecies
+
+[33mcommit 7bbdf7ff4069abbf0b95fd7cc311929b97deb437[m
+Author: fipaniagua <fipaniagua@uc.cl>
+Date:   Wed Jan 20 11:37:47 2021 -0300
+
+    :arrow_up: add reqest to dependecies
+
+[33mcommit e3761faf9c65f723d121686c798b9fc9e67224a9[m
+Author: fipaniagua <fipaniagua@uc.cl>
+Date:   Wed Jan 20 10:37:06 2021 -0300
+
+    :bug: Fix minor name file bug
+
+[33mcommit 80681cc27f46b179bc987e037a9d8e56f877bbe3[m
+Author: fipaniagua <fipaniagua@uc.cl>
+Date:   Wed Jan 20 10:23:05 2021 -0300
+
+    :wrench: add requirment file
+
+[33mcommit b8f5c4ea786345758cf269ae70ce90ab2d8bfaff[m
+Merge: f88d52b ba71c84
+Author: fipaniagua <fipaniagua@uc.cl>
+Date:   Wed Jan 20 10:13:41 2021 -0300
+
+    Merge branch 'production-config' into develop
+
+[33mcommit ba71c84db26681ae95556c986f765391f68f5663[m[33m ([m[1;32mproduction-config[m[33m)[m
+Author: fipaniagua <fipaniagua@uc.cl>
+Date:   Wed Jan 20 10:08:33 2021 -0300
+
+    :wheelchair: add email key
+
+[33mcommit f88d52b4640d56e89def0ab920f9813f402fb2de[m[33m ([m[1;32malexa[m[33m)[m
+Author: fipaniagua <fipaniagua@uc.cl>
+Date:   Wed Jan 20 09:45:17 2021 -0300
+
+    :star: mailer update
+
+[33mcommit 2a800f0440a1c52b8737bad46d055b1024702738[m
+Author: fipaniagua <fipaniagua@uc.cl>
+Date:   Wed Jan 20 09:36:45 2021 -0300
+
+    :star: mailer connected and working
+
+[33mcommit 60ad274213193b536dc3801633a25c6a39a459ce[m[33m ([m[1;31morigin/alexa[m[33m)[m
+Author: fipaniagua <fipaniagua@uc.cl>
+Date:   Mon Jan 18 19:11:42 2021 -0300
+
+    :star: mailer and alexa web score working
+
+[33mcommit f4b3bea5e51cf46e5466196109183b87e708c1b0[m[33m ([m[1;31morigin/master[m[33m, [m[1;32mmaster[m[33m)[m
+Author: fipaniaguaLV <76949470+fipaniaguaLV@users.noreply.github.com>
+Date:   Mon Jan 18 12:55:51 2021 -0300
+
+    :star: update README.MD
+
+[33mcommit fc85fdd772a990e9986be1643e51e854478426ae[m
+Author: fipaniagua <fipaniagua@uc.cl>
+Date:   Mon Jan 18 12:53:38 2021 -0300
+
+    :star: first commit
