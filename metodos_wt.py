@@ -20,6 +20,7 @@ import re
 import nltk
 import json
 from xml.etree.ElementTree import ParseError
+from datetime import datetime
 
 
 def similarGet(url):
@@ -174,14 +175,45 @@ def process_raw_text(text, sw, stemmer):
     return text
 
 
-def count_vect(text, vectorizer):
+def count_vect(text, vectorizer, min_apps=3, keep_w=[]):
+    # min_apps: cuantas veces tiene que aparecer el ngram para mantenerlo
+    # keep_w palabras que queremos mantener a pesar de que aparecen menos
     counts = vectorizer.fit_transform([text])
-    counts = pd.Series(counts.toarray()[0], index = vectorizer.get_feature_names())
+    counts = pd.Series(counts.toarray()[0], index=vectorizer.get_feature_names())
+    min_apps_idx = counts >= min_apps
+    keep_w_idx = [w in keep_w for w in counts.index]
+    idx = min_apps_idx | keep_w_idx
+    counts = counts.loc[idx]
     return counts / counts.sum()
 
 
+def date_to_q(date):
+    q = date.quarter
+    y = date.year
+    return datetime(y, q*3, 1)
 
 
+def get_sentiment(df, sent_dict, negation_list):
+
+    neg_word = list(set(sent_dict['Negative']) & set(df.index))
+    pos_word = list(set(sent_dict['Positive']) & set(df.index))
+    negation_word = list(set(negation_list) & set(df.index))
+    negation_bigrams_pos = sum([[f'{a} {b}' for b in neg_word]
+                                for a in negation_word], [])
+    negation_bigrams_pos = list(set(negation_bigrams_pos) & set(df.index))
+    negation_bigrams_neg = sum([[f'{a} {b}' for b in pos_word]
+                                for a in negation_word], [])
+    negation_bigrams_neg = list(set(negation_bigrams_neg) & set(df.index))
+    sentiment = {}
+    sentiment['Negative'] = df.loc[neg_word].sum()
+    sentiment['Positive'] = df.loc[pos_word].sum()
+    sentiment['Negative'] += 2 * df.loc[negation_bigrams_neg].sum()
+    sentiment['Positive'] += 2 * df.loc[negation_bigrams_pos].sum()
+    sentiment = pd.DataFrame(sentiment)
+    sentiment['Delta'] = sentiment['Positive'] - sentiment['Negative']
+    sentiment.index = [date_to_q(d) for d in sentiment.index]
+
+    return sentiment
 
 
 
