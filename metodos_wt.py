@@ -21,6 +21,7 @@ import nltk
 import json
 from xml.etree.ElementTree import ParseError
 from datetime import datetime
+import matplotlib.pyplot as plt
 
 
 def similarGet(url):
@@ -212,8 +213,119 @@ def get_sentiment(df, sent_dict, negation_list):
     sentiment = pd.DataFrame(sentiment)
     sentiment['Delta'] = sentiment['Positive'] - sentiment['Negative']
     sentiment.index = [date_to_q(d) for d in sentiment.index]
+    sentiment = sentiment[~sentiment.index.duplicated(keep='first')]
 
     return sentiment
 
 
+def split_qa(text):
+    try:
+        return text.lower().split('question and answer')
+    except ValueError:
+        try:
+            return text.lower().split('first question')
+        except ValueError:
+            return None
 
+
+def plot_dif_evol(df, company):
+    dif_evol = ((df.diff(1) ** 2).sum(0) ** (1/2))
+    dif_evol.plot(color='darkred', figsize=(8, 5),
+                  title=f'Diferencia entre transcripts: {company}')
+
+
+def plot_word_evol(df, N=15):
+    w_list = df.mean(1).sort_values(ascending=False).index[:N]
+    df_mini = df.loc[w_list].T
+    df_mini.plot.bar(title='Evolución términos más repetidos',
+                     figsize=(15, 10))
+
+
+def main_changes(count_dict, company, MM_per=4, N=15):
+    
+    df = count_dict[company]
+    last_per_mean = df.iloc[:, (-MM_per-2):-2].mean(1)
+    cambios = (df.iloc[:, -1] - last_per_mean).sort_values() * 100
+
+    fig, ax = plt.subplots(1, 3, figsize=(10, 7))
+    cambios.iloc[:N].plot.barh(title='Menos menciones', ax=ax[0], color='darkred')
+    cambios.iloc[-N:].plot.barh(title='Más menciones', ax=ax[-1], color='darkblue')
+    fig.suptitle(f'Mayores cambios con respecto a los últimos {MM_per} reportes')
+
+
+def n_nearest_companies(last_df, company, n=10):
+
+    diff_df = last_df.sub(last_df[company].values, axis=0)
+    dist_serie = (diff_df**2).sum() ** (1/2)
+    n_nearest = dist_serie.sort_values()[1:n+1]
+    n_nearest.plot.barh(title=f'{n} Empresas más parecidas',
+                        color='darkgray', figsize=(10, 7))
+    return dist_serie
+
+
+
+# Análsis General
+def get_top_clusters(clusters_dict, cluster, N=10, cambio=True):
+
+    df = clusters_dict[cluster]
+    if cambio:
+        serie = df.diff().iloc[-1].sort_values(ascending=True).dropna()
+        title = f'Mayores cambios en el cluster {cluster}'
+    else:
+        serie = df.iloc[-1].sort_values(ascending=True).dropna()
+        title = f'Top y Bottom nivel en el cluster {cluster}'
+    top = serie[-N:]
+    bottom = serie[:N]
+    fig, ax = plt.subplots(1, 3, figsize=(10, 7))
+    top.iloc[:N].plot.barh(title='Más énfasis',
+                           ax=ax[-1], color='darkblue')
+    bottom.iloc[-N:].plot.barh(title='Menos énfasis',
+                               ax=ax[0], color='darkred')
+    fig.suptitle(title)
+
+    
+def top_changes(delta_df, N=10):
+    title = 'Top y Bottom distancia vs último transcript'
+    deltas = ((delta_df ** 2).sum() ** (1/2)).sort_values()
+    top = deltas[-N:]
+    bottom = deltas[:N]
+    fig, ax = plt.subplots(1, 3, figsize=(10, 7))
+    top.iloc[:N].plot.barh(title='Mayores Cambios',
+                           ax=ax[-1], color='darkblue')
+    bottom.iloc[-N:].plot.barh(title='Menores Cambios',
+                               ax=ax[0], color='darkred')
+    fig.suptitle(title)
+
+
+def cluster_contribution(last_df, company, cluster_words, N=10):
+    df = last_df[company]
+    cluster_count = {c: df.loc[set(words)&set(df.index)].sort_values(ascending=True).iloc[:N].dropna() * 10000
+                     for c, words in cluster_words.iteritems()}
+    M = cluster_words.shape[1]
+    fig, ax = plt.subplots(2, M, figsize=(18, 13))
+    
+    for i, (cluster, serie) in enumerate(cluster_count.items()):
+        serie.plot.barh(title=cluster, ax=ax[i%2, int(i/2)*2], color='darkgrey')
+    
+    fig.suptitle('Principales aportes por Tópico', size=30)
+    fig.subplots_adjust(hspace=0.3)                     
+                         
+                         
+                         
+                         
+                         
+                         
+                         
+                         
+                         
+                         
+                         
+                         
+                         
+                         
+                         
+                         
+                         
+                         
+    
+   

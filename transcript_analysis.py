@@ -32,6 +32,7 @@ for key, data in transcript_dict.items():
         continue
     print(key)
     data['date'] = pd.to_datetime(data['date'])
+    data = data.loc[data['type'] == 'Earnings Call']
     data = data[['date', 'text']].set_index('date').squeeze()
 
     # Si hay un solo transcript, pasamos
@@ -83,62 +84,28 @@ for c in cluster_words.columns:
                                                   negation_list)
     clusters_dict[c] = pd.DataFrame(cluster_dict)
 
-# Análsis
+sentiments = list(next(iter(sentiment_dict.values())).columns)
+sentiment_dict = {s: pd.DataFrame({k: df[s] for k, df in sentiment_dict.items()})
+                  for s in sentiments}
+clusters_dict = {**sentiment_dict, **clusters_dict}
 
-
-def plot_dif_evol(df, company):
-    dif_evol = ((df.diff(1) ** 2).sum(0) ** (1/2))
-    dif_evol.plot(color='darkred', figsize=(8, 5),
-                  title=f'Diferencia entre transcripts: {company}')
-
-
-def plot_word_evol(df, N=15):
-    w_list = df.mean(1).sort_values(ascending=False).index[:N]
-    df_mini = df.loc[w_list].T
-    df_mini.plot.bar(title='Evolución términos más repetidos',
-                     figsize=(15, 10))
-
-
-def main_changes(df, MM_per=4, N=15):
-    last_per_mean = df.iloc[:, (-MM_per-2):-2].mean(1)
-    cambios = (df.iloc[:, -1] - last_per_mean).sort_values() * 100
-
-    fig, ax = plt.subplots(1, 3, figsize=(10, 7))
-    cambios.iloc[:N].plot.barh(title='Menos menciones', ax=ax[0], color='darkred')
-    cambios.iloc[-N:].plot.barh(title='Más menciones', ax=ax[-1], color='darkblue')
-    fig.suptitle(f'Mayores cambios con respecto a los últimos {MM_per} reportes')
-
-
-def plot_topics(df, n_per=1, K=3):
-    df_t = df.iloc[:, -n_per:]
-    lda = lda_topics(df_t, k=K, maxiter=500)
-
-
-def n_nearest_companies(last_df, company, n=10):
-
-    diff_df = last_df.sub(last_df[company].values, axis=0)
-    dist_serie = (diff_df**2).sum() ** (1/2)
-    n_nearest = dist_serie.sort_values()[1:n+1]
-    ax_nnc = n_nearest.plot.barh(title=f'{n} Empresas más parecidas',
-                                 color='darkgray', figsize=(10, 7))
-    return dist_serie
-
+# Análisis específico de empresas
 company = 'MGLU3'
 df = count_dict[company]
 
 plt.style.use('fivethirtyeight')
-plot_dif_evol(df, company)
+mwt.plot_dif_evol(df, company)
 #plot_word_evol(df, N=10)
 
 # Principales cambios
-main_changes(df, MM_per=4, N=15)
+mwt.main_changes(df, MM_per=4, N=15)
 
 # K empresas más parecidas
-n_nearest_companies(last_df, company, n=15)
+mwt.n_nearest_companies(last_df, company, n=15)
 
-
-
-
+a = {}
+for c, df in transcript_dict.items():
+    a[c] = df['text'].str.lower().str.contains('question and answer').sum()/df.shape[0] 
 
 
 
